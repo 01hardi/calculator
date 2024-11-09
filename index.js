@@ -29,8 +29,8 @@ const makeCommits = (n) => {
   const date = moment()
     .subtract(1, "y")
     .add(1, "d")
-    .add(x, "w")
-    .add(y, "d")
+    .add(2, "w")
+    .add(6, "d")
     .format();
 
   const data = {
