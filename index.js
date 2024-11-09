@@ -4,9 +4,8 @@ import simpleGit from "simple-git";
 import random from "random";
 
 const path = "./data.json";
-const git = simpleGit();
 
-const markCommit = async (x, y) => {
+const markCommit = (x, y) => {
   const date = moment()
     .subtract(1, "y")
     .add(1, "d")
@@ -18,18 +17,13 @@ const markCommit = async (x, y) => {
     date: date,
   };
 
-  await jsonfile.writeFile(path, data);
-  await git.add([path]);
-  await git.commit(date, { "--date": date });
-  await git.push();
+  jsonfile.writeFile(path, data, () => {
+    simpleGit().add([path]).commit(date, { "--date": date }).push();
+  });
 };
 
-const makeCommits = async (n) => {
-  if (n === 0) {
-    await git.push();
-    return;
-  }
-
+const makeCommits = (n) => {
+  if (n === 0) return simpleGit().push();
   const x = random.int(0, 54);
   const y = random.int(0, 6);
   const date = moment()
@@ -43,12 +37,11 @@ const makeCommits = async (n) => {
     date: date,
   };
   console.log(date);
-
-  await jsonfile.writeFile(path, data);
-  await git.add([path]);
-  await git.commit(date, { "--date": date });
-
-  await makeCommits(n - 1);
+  jsonfile.writeFile(path, data, () => {
+    simpleGit()
+      .add([path])
+      .commit(date, { "--date": date }, makeCommits.bind(this, --n));
+  });
 };
 
-makeCommits(100).catch(console.error);
+makeCommits(100);
