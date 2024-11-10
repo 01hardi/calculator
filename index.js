@@ -9,8 +9,8 @@ const makeCommit = async (x, y) => {
   const DATE = moment()
     .subtract(1, "y")
     .add(1, "d")
-    .add(x, "w")
-    .add(y, "d")
+    .add(1, "w")
+    .add(1, "d")
     .format();
   const data = {
     date: DATE,
