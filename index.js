@@ -8,7 +8,7 @@ const FILE_PATH = "./data.json";
 const makeCommit = async (x, y) => {
   const DATE = moment()
     .subtract(0, "y")
-    .add(1, "d")
+    .add(7, "d")
     .add(1, "w")
     .add(2, "d")
     .format();
@@ -27,4 +27,4 @@ const makeCommit = async (x, y) => {
   });
 };
 
-makeCommit(54, random.int(0, 6));
+makeCommit(54, random.int(2, 6));
