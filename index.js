@@ -7,10 +7,10 @@ const FILE_PATH = "./data.json";
 
 const makeCommit = async (x, y) => {
   const DATE = moment()
-    .subtract(1, "y")
+    .subtract(0, "y")
     .add(1, "d")
     .add(1, "w")
-    .add(1, "d")
+    .add(2, "d")
     .format();
   const data = {
     date: DATE,
