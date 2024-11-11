@@ -5,26 +5,12 @@ import random from "random";
 
 const FILE_PATH = "./data.json";
 
-const makeCommit = async (x, y) => {
-  const DATE = moment()
-    .subtract(0, "y")
-    .add(7, "d")
-    .add(1, "w")
-    .add(2, "d")
-    .format();
-  const data = {
-    date: DATE,
-  };
+const DATE = moment().format();
 
-  jsonfile.writeFile(FILE_PATH, data, () => {
-    simpleGit()
-      .add([FILE_PATH])
-      .commit(
-        DATE,
-        { "--date": DATE },
-        makeCommit.bind(this, --x, random.int(0, 6))
-      );
-  });
+const data = {
+  date: DATE,
 };
 
-makeCommit(54, random.int(2, 6));
+jsonfile.writeFile(FILE_PATH, data);
+
+simpleGit().add([FILE_PATH]).commit(DATE, { "--date": DATE }).push();
